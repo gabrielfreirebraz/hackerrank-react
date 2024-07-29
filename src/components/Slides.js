@@ -9,7 +9,7 @@ function Slides({slides}) {
 
 
     useEffect(() => {
-        const indexActive = currentIndexBanner()
+        const indexActive = lastIndexBanner()
         const total_slides = slides.length-1
    
         setPrevDisabled(indexActive === 0)
@@ -22,21 +22,15 @@ function Slides({slides}) {
         setActiveBanner(slides[0])
     }
     
-    function currentIndexBanner() {
+    function lastIndexBanner() {
         return slides.findIndex((currValCheck) => currValCheck === activeBanner)
     }
     
     function onClick(type) {
-        const indexActive = currentIndexBanner()
+        const indexActive = lastIndexBanner()
 
-        if (indexActive > -1) {
-            const nextSlide = slides[indexActive+1]
-            const prevSlide = slides[indexActive-1]
-            
-            
-            if (type === 'next' && nextSlide) setActiveBanner(() => nextSlide)
-            else if (type === 'prev' && prevSlide) setActiveBanner(() => prevSlide)
-        } 
+        if (type === 'next') setActiveBanner(() => slides[indexActive+1])
+        else if (type === 'prev') setActiveBanner(() =>  slides[indexActive-1])
     }
     
     return (
